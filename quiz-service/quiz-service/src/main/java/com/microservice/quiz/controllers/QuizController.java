@@ -2,6 +2,8 @@ package com.microservice.quiz.controllers;
 
 import com.microservice.quiz.dto.QuizDto;
 import com.microservice.quiz.services.QuizService;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
@@ -13,6 +15,7 @@ import java.util.List;
 public class QuizController {
 
     private final QuizService quizService;
+    private static final Logger logger = LoggerFactory.getLogger(QuizController.class);
 
     public QuizController(QuizService quizService) {
         this.quizService = quizService;
@@ -44,11 +47,23 @@ public class QuizController {
         return new ResponseEntity<> (quizService.findById(quizId),HttpStatus.OK);
     }
 
+   // int i=0;
     @GetMapping
     public ResponseEntity<List<QuizDto>> findAll()
     {
-        List<QuizDto> quizDtoList = quizService.findAll();
-        return new ResponseEntity<>(quizDtoList,HttpStatus.OK);
+//        logger.info("Fetching all quizzes {}",i);
+//        i++;
+//        if(i<4)
+//        {
+//            throw new RuntimeException("Quiz service is down");
+//        }
+//     else {
+//         return new ResponseEntity<>(quizService.findAll(),HttpStatus.OK);
+//
+//        }
+
+
+        return new ResponseEntity<>(quizService.findAll(),HttpStatus.OK);
     }
 
     @GetMapping("/category/{categoryId}")

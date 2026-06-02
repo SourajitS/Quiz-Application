@@ -1,7 +1,10 @@
 package com.microservice.quiz;
 
 import com.microservice.quiz.collections.Quiz;
+import com.microservice.quiz.dto.CategoryDto;
 import com.microservice.quiz.repositories.QuizRepository;
+import com.microservice.quiz.services.CategoryServiceFeignClient;
+import org.junit.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.CommandLineRunner;
 import org.springframework.boot.SpringApplication;
@@ -10,6 +13,7 @@ import org.springframework.cloud.client.discovery.EnableDiscoveryClient;
 import org.springframework.cloud.openfeign.EnableFeignClients;
 import org.springframework.web.reactive.function.client.WebClient;
 
+import java.util.List;
 import java.util.UUID;
 
 @SpringBootApplication
@@ -20,6 +24,8 @@ public class QuizServiceApplication implements CommandLineRunner {
 
 	@Autowired
 	private QuizRepository quizRepository;
+
+
 
 	public static void main(String[] args) {
 //		WebClient webClient = WebClient.create("http://127.0.0.1:9092");

@@ -19,7 +19,6 @@ import java.util.List;
 public class CategoryServiceImplWebClient implements CategoryService {
 
     private final RestTemplate restTemplate;
-
     private final WebClient webClient;
     private final WebClient.Builder webClientBuilder;
 
@@ -30,10 +29,9 @@ public class CategoryServiceImplWebClient implements CategoryService {
 
     public CategoryServiceImplWebClient(RestTemplate restTemplate,WebClient.Builder webClientBuilder , ModelMapper modelMapper) {
         this.restTemplate = restTemplate;
-
-       this.webClientBuilder =webClientBuilder;
+        this.webClientBuilder =webClientBuilder;
         this.modelMapper = modelMapper;
-       this.webClient = webClientBuilder.baseUrl("lb://CATEGORY-SERVICE").build();
+        this.webClient = webClientBuilder.baseUrl("lb://CATEGORY-SERVICE").build();
 
 
     }

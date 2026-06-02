@@ -29,7 +29,7 @@ public class ProjectConfig {
 
 
     @Bean
-@LoadBalanced
+    @LoadBalanced
     public WebClient.Builder webClientBuilder() {
         return WebClient.builder();
     }

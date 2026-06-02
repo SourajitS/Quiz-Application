@@ -2,12 +2,24 @@ spring:
   application:
     name: quiz-service
 
+  config:
+    import: "configserver:http://localhost:9080"
+  profiles:
+    active: prod
+
+
   data:
     mongodb:
       uri: mongodb://localhost:27017/quizdb
 
 server:
-  port: 9095
+  port: 9099
+
+management:
+  endpoints:
+    web:
+      exposure:
+        include: "*"
 
 eureka:
   client:
@@ -16,6 +28,33 @@ eureka:
     service-url:
       defaultZone: http://localhost:8761/eureka/
 
+
 logging:
   level:
     org.springframework.web.reactive.function.client.ExchangeFunctions: TRACE
+    com.microservice.quiz: INFO
+
+resilience4j:
+  circuitbreaker:
+    instances:
+      quizServiceCircuitBreaker:
+        register-health-indicator: true
+        sliding-window-type: COUNT_BASED
+        sliding-window-size: 10
+        minimum-number-of-calls: 5
+        permitted-number-of-calls-in-half-open-state: 3
+        wait-duration-in-open-state: 10s
+        failure-rate-threshold: 50
+        automatic-transition-from-open-to-half-open-enabled: true
+        event-consumer-buffer-size: 10
+
+  timelimiter:
+    instances:
+      quizServiceCircuitBreaker:
+        timeout-duration: 3s
+
+  retry:
+    instances:
+      quizServiceCircuitBreaker:
+        max-attempts: 3
+        wait-duration: 500ms
